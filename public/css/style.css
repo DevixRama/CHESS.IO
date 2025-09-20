@@ -1,0 +1,111 @@
+*{
+    user-select: none;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    
+}
+
+
+.chessboard {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    grid-template-rows: repeat(8, minmax(0, 1fr));
+    transform: rotate(0deg);
+}
+
+.piece.white {
+    color: white;
+    text-shadow: 1px 1px 0 #000, -1px 1px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+}
+
+.piece.black {
+    color: black;
+    text-shadow: 1px 1px 0 #fff, -1px 1px 0 #fff, 1px -1px 0 #fff, -1px -1px 0 #fff;
+}
+
+
+.flipped {
+    transform: rotate(180deg);
+}
+
+.square {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.square.light {
+    background-color: #EEEED2;
+}
+
+.square.dark {
+    background-color: #769656;
+}
+
+.piece {
+    font-size: 2.4rem;
+    cursor: pointer;
+}
+
+.piece.draggable {
+    cursor: grab;
+}
+
+.dragging {
+    opacity: 0.5;
+}
+
+/* Rotate pieces for black player */
+.flipped .piece {
+    transform: rotate(180deg);
+}
+
+
+
+.toastify {
+    z-index: 9999 !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    border-radius: 2px !important;
+    padding: 10px 16px !important;
+    box-shadow: none !important;
+}
+
+.toastify.success {
+    color: #ffff;
+    background: #78cf7fdb !important;
+}
+
+.toastify.error {
+    color: #ffff;
+    background: #b37871 !important;
+}
+
+.toastify.warning {
+    color: #ffff;
+    background: #efd376d3 !important;
+}
+
+
+
+
+/* Reduce piece size on smaller screens */
+@media (max-width: 600px) {
+    .piece {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .piece {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 320px) {
+    .piece {
+        font-size: 1.2rem;
+    }
+}

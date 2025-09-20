@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Boxicons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+
+
+
+<div class="flex flex-wrap flex-row-reverse w-full min-h-screen lg:px-12 gap-4 bg-[#1E1E1E] text-gray-200">
+  <!-- Header -->
+  <div class="w-full h-16 bg-[#2A2A2A] flex items-center justify-between px-4 shadow mx-4 rounded">
+    <div class="text-gray-100 text-xl flex text-center items-center gap-4 font-semibold"><span class="tracking-wider" >Chess Game</span> <span><i class="fa-solid fa-chess text-2xl"></i></span> </div>
+    <div class="text-gray-400 flex items-center text-md"><i class="fa-brands fa-github text-2xl mr-2"></i> @DevixRama</div>
+  </div>
+
+  <!-- Content -->
+  <div class="w-full md:flex-1 flex items-center justify-center p-2 overflow-x-hidden m-4 md:mb-24 rounded shadow bg-[#2A2A2A]">
+    <div id="chessboard" class="chessboard w-full max-w-[90vw] aspect-square sm:max-w-[60vw] md:max-w-[50vw] md:h-[70vh] border-2 border-gray-600 bg-[#1E1E1E]"></div>
+  </div>
+ 
+  <!-- Sidebar -->
+  <div class="w-full md:w-1/4 flex flex-col gap-3 p-3 m-4 md:mb-24 rounded shadow bg-[#2A2A2A]">
+    <button id="resetBtn" class="bg-[#3A3A3A] text-gray-200 font-medium py-2 px-4 rounded shadow-sm hover:bg-[#4A4A4A] transition">
+      <i class="fa-solid fa-rotate-left"></i>
+    </button>
+    <button id="startBtn" class="bg-[#3A3A3A] text-gray-200 font-medium py-2 px-4 rounded shadow-sm hover:bg-[#4A4A4A] transition">
+      <i class="fa-solid fa-play"></i>
+    </button>
+    <button id="turnBtn" class="bg-[#3A3A3A] text-gray-200 font-medium py-2 px-4 rounded shadow-sm hover:bg-[#4A4A4A] transition">
+      White's Turn
+    </button>
+  </div>
+</div>
+
+
+
+
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"
+        integrity="sha384-mkQ3/7FUtcGyoppY6bz/PORYoGqOl7/aSUMn2ymDOJcapfS6PHqxhRTMh1RR0Q6+"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"
+        integrity="sha512-xRllwz2gdZciIB+AkEbeq+gVhX8VB8XsfqeFbUh+SzHlN96dEduwtTuVuc2u9EROlmW9+yhRlxjif66ORpsgVA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Toastify JS -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="/js/script.js"></script>
+</body>
+
+</html>
