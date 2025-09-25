@@ -1,19 +1,8 @@
-*{
+* {
     user-select: none;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-body {
-    
-}
-
-
-.chessboard {
-    display: grid;
-    grid-template-columns: repeat(8, minmax(0, 1fr));
-    grid-template-rows: repeat(8, minmax(0, 1fr));
-    transform: rotate(0deg);
-}
 
 .piece.white {
     color: white;
@@ -30,22 +19,9 @@ body {
     transform: rotate(180deg);
 }
 
-.square {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.square.light {
-    background-color: #EEEED2;
-}
-
-.square.dark {
-    background-color: #769656;
-}
 
 .piece {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
     cursor: pointer;
 }
 
@@ -61,6 +37,28 @@ body {
 .flipped .piece {
     transform: rotate(180deg);
 }
+
+
+
+.move-marker {
+    width: 20px;
+    height: 20px;
+    background-color: #7CFC00;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    /* makes diamond shape */
+    pointer-events: none;
+    /* don’t block clicks */
+    border-radius: 2px;
+}
+
+.square {
+    position: relative;
+    /* needed for absolute positioning */
+}
+
 
 
 

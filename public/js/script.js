@@ -7,6 +7,8 @@ const boardElement = document.querySelector('.chessboard')
 const resetBtn = document.querySelector('#resetBtn')
 const turnBtn = document.querySelector('#turnBtn');
 
+console.log(boardElement);
+
 
 
 resetBtn.addEventListener("click", () => {
@@ -22,57 +24,86 @@ socket.on("turn", (turn) => {
 
 
 
+
 const renderBoard = () => {
-    const board = chess.board()
-    boardElement.innerHTML = ""
-
-    playerRole === "b" ? boardElement.classList.add("flipped") : boardElement.classList.remove("flipped")
-
+    const board = chess.board();
 
     board.forEach((row, rowIdx) => {
-        row.forEach((square, squareIdx) => {
+        row.forEach((col, colIdx) => {
+            const squareEl = document.querySelector(`.square[data-row='${rowIdx}'][data-col='${colIdx}']`);
+            squareEl.innerHTML = ""; // clear previous piece
 
-            const squaresquare = document.createElement("div")
-            squaresquare.classList.add("square", (rowIdx + squareIdx) % 2 === 0 ? "light" : "dark")
-
-            squaresquare.dataset.row = rowIdx
-            squaresquare.dataset.col = squareIdx
-
-            if (square) {
-                //problem 
-                const pieceElement = document.createElement("div")
-                pieceElement.classList.add("piece", square.color === "w" ? "white" : "black")
-                pieceElement.innerHTML = getPeiceUnicode(square);
-
-                pieceElement.draggable = playerRole === square.color
-
-                pieceElement.addEventListener("dragstart", (e) => {
-                    if (pieceElement.draggable) {
-                        draggedPiece = pieceElement
-                        sourceSquare = { row: rowIdx, col: squareIdx };
-                        e.dataTransfer.setData("text/plain", "")
-                    }
-                })
-                pieceElement.addEventListener("dragend", (e) => {
-                    draggedPiece = null
-                    sourceSquare = null
-                })
-                squaresquare.appendChild(pieceElement)
+            if (col) {
+                const pieceEl = document.createElement("div");
+                pieceEl.classList.add("piece", col.color === "w" ? "white" : "black");
+                pieceEl.innerHTML = getPeiceUnicode(col);
+                squareEl.appendChild(pieceEl);
             }
-            squaresquare.addEventListener("dragover", (e) => { e.preventDefault() })
-            squaresquare.addEventListener("drop", (e) => {
-                e.preventDefault()
-                if (draggedPiece) {
-                    const targetSource = {
-                        row: Number.parseInt(squaresquare.dataset.row),
-                        col: Number.parseInt(squaresquare.dataset.col),
-                    }
-                    handleMove(sourceSquare, targetSource)
-                }
-            })
-            boardElement.appendChild(squaresquare)
-        })
-    })
+        });
+    });
+};
+
+
+function resetSquareColor(squareEl, row, col) {
+    const isWhite = (row + col) % 2 === 0;
+    squareEl.style.backgroundColor = isWhite ? "#eee" : "#555";
+}
+
+
+let selectedSquare = null;
+var audio = new Audio("./assets/clickPeice.mp3");
+var moved = new Audio("./assets/peiceMove.mp3");
+
+boardElement.addEventListener("click", (e) => {
+    audio.play()
+
+    const squareEl = e.target.closest(".square");
+    if (!squareEl) return;
+
+    const row = parseInt(squareEl.dataset.row);
+    const col = parseInt(squareEl.dataset.col);
+
+    const piece = chess.get(`${String.fromCharCode(97 + col)}${8 - row}`);
+
+    if (piece && piece.color === playerRole) {
+        // Clear previous selection
+        if (selectedSquare && selectedSquare.el) {
+            resetSquareColor(selectedSquare.el, selectedSquare.row, selectedSquare.col);
+            clearHighlights();
+        }
+
+        // Select new piece
+        selectedSquare = { row, col, el: squareEl };
+        squareEl.style.backgroundColor = "#7CFC00";
+        highlightMoves(selectedSquare);
+
+    } else if (selectedSquare) {
+        moved.play();
+        handleMove(selectedSquare, { row, col });
+        resetSquareColor(selectedSquare.el, selectedSquare.row, selectedSquare.col);
+        selectedSquare = null;
+        clearHighlights();
+    }
+});
+
+
+
+function highlightMoves(square) {
+    const from = `${String.fromCharCode(97 + square.col)}${8 - square.row}`;
+    const moves = chess.moves({ square: from, verbose: true });
+
+    moves.forEach(m => {
+        const targetEl = document.querySelector(`.square[data-row='${8 - parseInt(m.to[1])}'][data-col='${m.to.charCodeAt(0) - 97}']`);
+        if (targetEl) {
+            const marker = document.createElement("div");
+            marker.classList.add("move-marker");
+            targetEl.appendChild(marker);
+        }
+    });
+}
+
+function clearHighlights() {
+    document.querySelectorAll(".move-marker").forEach(el => el.remove());
 }
 
 
@@ -101,9 +132,15 @@ const getPeiceUnicode = (peice) => {
 renderBoard()
 
 socket.on("playerRole", (role) => {
-    playerRole = role
-    renderBoard()
-})
+    playerRole = role;
+    if (playerRole === "b") {
+        boardElement.classList.add("flipped");
+    } else {
+        boardElement.classList.remove("flipped");
+    }
+    renderBoard();
+});
+
 
 socket.on("spectatorRole", () => {
     playerRole = null
@@ -119,8 +156,6 @@ socket.on("move", (move) => {
     chess.move(move)
     renderBoard()
 })
-
-
 
 
 
