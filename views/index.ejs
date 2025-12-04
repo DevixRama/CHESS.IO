@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
+  <title>Chess Clash - (Online)</title>
+  <link rel="icon" type="image/png" href="/assets/fav-icon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Boxicons CDN -->
@@ -24,9 +25,15 @@
   <div
     class=" max-h-screen flex flex-wrap flex-row-reverse w-full min-h-screen lg:px-12 gap-4 bg-[#1E1E1E] text-gray-200">
     <!-- Header -->
-    <div class="w-full h-16 bg-[#2A2A2A] flex items-center justify-between px-4 shadow mx-4 rounded">
-      <div class="text-gray-100 text-xl flex text-center items-center gap-2 font-medium"><span
-          class="tracking-wider">ChessGame</span> <span><i class="fa-solid fa-chess text-xl"></i></span> </div>
+    <div class="w-full h-16 bg-[#2A2A2A] flex items-center justify-between px-8 shadow mx-4 rounded">
+      <div class="text-gray-100 text-xl flex text-center items-center gap-2 font-semibold"><span
+          class="tracking-wider">Chess Clash 
+          <span class="text-green-600 font-medium">(Online)</span></span>
+          <span>
+            <img class="w-8" src="/assets/fav-icon.png" alt="Chess Clash">
+            <!-- <i class='bx  bx-chess-knight' style='color:#ffffff'></i>  -->
+          </span>
+          </div>
       <div class="text-gray-400 flex items-center text-sm"><i class="fa-brands fa-github text-sm mr-2"></i>DevixRama
       </div>
     </div>
@@ -53,7 +60,7 @@
     <div class="w-full md:w-1/4 flex flex-col gap-3 p-3 m-4 md:mb-24 rounded shadow bg-[#2A2A2A]">
       <button id="resetBtn" 
         class="bg-zinc-700 text-gray-200 font-medium p-2 rounded shadow-sm hover:bg-red-800 transition">
-        Reset Game <i class="fa-solid fa-rotate-left"></i>
+        Reset Game <i class="pl-2 fa-solid fa-rotate-left"></i>
       </button>
       <button id="turnBtn"
         class="bg-zinc-700 text-gray-200 font-medium py-2 px-4 rounded shadow-sm hover:text-black hover:bg-white transition">
