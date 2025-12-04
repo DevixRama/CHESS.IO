@@ -25,9 +25,9 @@
     class=" max-h-screen flex flex-wrap flex-row-reverse w-full min-h-screen lg:px-12 gap-4 bg-[#1E1E1E] text-gray-200">
     <!-- Header -->
     <div class="w-full h-16 bg-[#2A2A2A] flex items-center justify-between px-4 shadow mx-4 rounded">
-      <div class="text-gray-100 text-xl flex text-center items-center gap-4 font-semibold"><span
-          class="tracking-wider">Chess Game</span> <span><i class="fa-solid fa-chess text-2xl"></i></span> </div>
-      <div class="text-gray-400 flex items-center text-md"><i class="fa-brands fa-github text-2xl mr-2"></i> @DevixRama
+      <div class="text-gray-100 text-xl flex text-center items-center gap-2 font-medium"><span
+          class="tracking-wider">ChessGame</span> <span><i class="fa-solid fa-chess text-xl"></i></span> </div>
+      <div class="text-gray-400 flex items-center text-sm"><i class="fa-brands fa-github text-sm mr-2"></i>DevixRama
       </div>
     </div>
 
@@ -51,16 +51,12 @@
 
     <!-- Sidebar -->
     <div class="w-full md:w-1/4 flex flex-col gap-3 p-3 m-4 md:mb-24 rounded shadow bg-[#2A2A2A]">
-      <button id="resetBtn"
-        class="bg-[#3A3A3A] text-gray-200 font-medium py-2 px-4 rounded shadow-sm hover:bg-[#4A4A4A] transition">
-        <i class="fa-solid fa-rotate-left"></i>
-      </button>
-      <button id="startBtn"
-        class="bg-[#3A3A3A] text-gray-200 font-medium py-2 px-4 rounded shadow-sm hover:bg-[#4A4A4A] transition">
-        <i class="fa-solid fa-play"></i>
+      <button id="resetBtn" 
+        class="bg-zinc-700 text-gray-200 font-medium p-2 rounded shadow-sm hover:bg-red-800 transition">
+        Reset Game <i class="fa-solid fa-rotate-left"></i>
       </button>
       <button id="turnBtn"
-        class="bg-[#3A3A3A] text-gray-200 font-medium py-2 px-4 rounded shadow-sm hover:bg-[#4A4A4A] transition">
+        class="bg-zinc-700 text-gray-200 font-medium py-2 px-4 rounded shadow-sm hover:text-black hover:bg-white transition">
         White's Turn
       </button>
     </div>

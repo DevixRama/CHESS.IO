@@ -10,13 +10,16 @@ const turnBtn = document.querySelector('#turnBtn');
 console.log(boardElement);
 
 
-
 resetBtn.addEventListener("click", () => {
     socket.emit("resetGame");
-    socket.on("resetClick", () => {
-        showToast("Game reset!", "warning");
-    })
 });
+
+
+socket.on("resetClick", () => {
+    showToast("Game reset!", "warning");
+});
+
+
 
 socket.on("turn", (turn) => {
     turnBtn.textContent = turn === "w" ? "White's Turn" : "Black's Turn";
@@ -52,13 +55,13 @@ function resetSquareColor(squareEl, row, col) {
 
 let selectedSquare = null;
 var audio = new Audio("./assets/clickPeice.mp3");
-var moved = new Audio("./assets/peiceMove.mp3");
+// var moved = new Audio("./assets/peiceMove.mp3");
 
 boardElement.addEventListener("click", (e) => {
-    audio.play()
-
+    
     const squareEl = e.target.closest(".square");
     if (!squareEl) return;
+    audio.play()
 
     const row = parseInt(squareEl.dataset.row);
     const col = parseInt(squareEl.dataset.col);
@@ -74,11 +77,10 @@ boardElement.addEventListener("click", (e) => {
 
         // Select new piece
         selectedSquare = { row, col, el: squareEl };
-        squareEl.style.backgroundColor = "#7CFC00";
+        squareEl.style.backgroundColor = "#228B22";
         highlightMoves(selectedSquare);
 
     } else if (selectedSquare) {
-        moved.play();
         handleMove(selectedSquare, { row, col });
         resetSquareColor(selectedSquare.el, selectedSquare.row, selectedSquare.col);
         selectedSquare = null;
@@ -162,7 +164,7 @@ socket.on("move", (move) => {
 
 
 
-const showToast = (message, type = "success", ms = 2500) => {
+const showToast = (message, type = "success", ms = 2000) => {
     Toastify({
         text: message,
         duration: ms,
