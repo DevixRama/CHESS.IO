@@ -1,57 +1,72 @@
 # CHESS.IO
 
-CHESS.IO is a web-based chess application. This project includes both frontend and backend components, providing an interactive chess experience in the browser.
+CHESS.IO is a web-based chess application with a Node/Express backend and a browser-based UI, designed for real-time play against friends or AI.
+
+## Live Demo
+- Demo: https://chess-io-46rv.onrender.com
 
 ## Features
-- Play chess in your browser
-- Interactive UI with modern design
-- Backend logic for game management
-- Responsive layout for desktop and mobile
+- Play chess directly in the browser with move validation.
+- Interactive UI with responsive layout for desktop and mobile.
+- Game state managed on the backend for reliability.
+- Supports playing vs. another person (pass-and-play) or AI (if enabled).
+- Lightweight setup: clone, install, and run.
+
+## Tech Stack
+- Node.js, Express
+- EJS templating
+- Vanilla JS, CSS
 
 ## Project Structure
-
 ```
-app.js                # Main server file
-package.json          # Project metadata and dependencies
+app.js                # Main server file / entrypoint
+package.json          # Project metadata and scripts
 public/
   css/style.css       # Stylesheets
-  js/script.js        # Frontend JavaScript
+  js/script.js        # Frontend logic
 steps/
-  backendSetup.yaml   # Backend setup instructions
-  frontendSetup.yaml  # Frontend setup instructions
+  backendSetup.yaml   # Backend setup checklist
+  frontendSetup.yaml  # Frontend setup checklist
 views/
   index.ejs           # Main HTML template
 ```
 
-## Getting Started
+## Requirements
+- Node.js v14+ (v18+ recommended)
+- npm
 
-### Prerequisites
-- Node.js (v14 or higher recommended)
-- npm (Node package manager)
+## Setup
+1) Clone
+```
+git clone <repository-url>
+cd CHESS.IO
+```
+2) Install deps
+```
+npm install
+```
 
-### Installation
-1. Clone the repository:
-   ```
-   git clone <repository-url>
-   cd CHESS.IO
-   ```
-2. Install dependencies:
-   ```
-   npm install
-   ```
+## Environment
+- Set `PORT` to override the default `3000`.
 
-### Running the Application
-Start the server:
+## Run
 ```
 npm start
 ```
-The app will be available at `http://localhost:3000` by default.
+App runs at `http://localhost:3000` by default.
+
+## Scripts
+- `npm start` — run server
+- `npm run dev` — (add if using nodemon) hot reload server
 
 ## Customization
-- Modify `public/css/style.css` for custom styles.
-- Update `public/js/script.js` for frontend logic.
-- Edit `views/index.ejs` for the main page layout.
+- Styles: `public/css/style.css`
+- Frontend logic: `public/js/script.js`
+- Layout/views: `views/index.ejs`
+
+## Testing
+- (Add tests) Suggested: Jest for JS unit tests; Playwright/Puppeteer for UI flows.
 
 ## Contributing
-Contributions are welcome! Please open issues or submit pull requests for improvements or bug fixes.
+Contributions welcome—please open issues or pull requests for improvements or fixes.
 
