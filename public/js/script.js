@@ -7,8 +7,6 @@ const boardElement = document.querySelector('.chessboard')
 const resetBtn = document.querySelector('#resetBtn')
 const turnBtn = document.querySelector('#turnBtn');
 
-console.log(boardElement);
-
 
 resetBtn.addEventListener("click", () => {
     socket.emit("resetGame");
@@ -54,8 +52,9 @@ function resetSquareColor(squareEl, row, col) {
 
 
 let selectedSquare = null;
-var audio = new Audio("./assets/clickPeice.mp3");
-// var moved = new Audio("./assets/peiceMove.mp3");
+const audio = new Audio("./assets/clickPeice.mp3");
+const removed = new Audio("./assets/removed.mp3");
+
 
 boardElement.addEventListener("click", (e) => {
     
@@ -69,8 +68,10 @@ boardElement.addEventListener("click", (e) => {
     const piece = chess.get(`${String.fromCharCode(97 + col)}${8 - row}`);
 
     if (piece && piece.color === playerRole) {
+        
         // Clear previous selection
         if (selectedSquare && selectedSquare.el) {
+            
             resetSquareColor(selectedSquare.el, selectedSquare.row, selectedSquare.col);
             clearHighlights();
         }
@@ -79,6 +80,7 @@ boardElement.addEventListener("click", (e) => {
         selectedSquare = { row, col, el: squareEl };
         squareEl.style.backgroundColor = "#228B22";
         highlightMoves(selectedSquare);
+        
 
     } else if (selectedSquare) {
         handleMove(selectedSquare, { row, col });
@@ -114,9 +116,18 @@ const handleMove = (source, target) => {
         from: `${String.fromCharCode(97 + source.col)}${8 - source.row}`,
         to: `${String.fromCharCode(97 + target.col)}${8 - target.row}`,
         promotion: "q"
+    };
+
+    const result = chess.move(move);
+    if (result && result.captured) {
+        removed.play();
     }
-    socket.emit("move", move)
-}
+
+    socket.emit("move", move);
+    renderBoard();
+};
+
+
 
 
 const getPeiceUnicode = (peice) => {
@@ -142,7 +153,6 @@ socket.on("playerRole", (role) => {
     }
     renderBoard();
 });
-
 
 socket.on("spectatorRole", () => {
     playerRole = null
